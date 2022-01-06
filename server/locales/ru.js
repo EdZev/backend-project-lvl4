@@ -2,7 +2,7 @@
 
 module.exports = {
   translation: {
-    appName: 'Fastify Шаблон',
+    appName: 'Мeнeджер задач',
     flash: {
       session: {
         create: {
