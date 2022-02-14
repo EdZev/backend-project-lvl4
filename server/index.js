@@ -127,8 +127,6 @@ export default () => {
     },
   });
 
-  console.log('!!!ENV!!!', process.env);
-
   registerPlugins(app); /*
   fastifyErrorPage,
   fastifyReverseRoutes
