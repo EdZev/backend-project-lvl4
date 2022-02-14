@@ -21,6 +21,9 @@ start-backend:
 start-frontend:
 	npx webpack serve
 
+deploy:
+	git push heroku
+
 lint:
 	npx eslint .
 
