@@ -127,21 +127,13 @@ export default () => {
     },
   });
 
-  registerPlugins(app); /*
-  fastifyErrorPage,
-  fastifyReverseRoutes
-  (generate path: fastify.reverse("frameworks", { name: "fastify" }) to /frameworks/fastify),
+  registerPlugins(app);
 
-  fastifyFormbody (parser for fastify: foo=foo&bar=bar&answer=42 to Object),
-  fastifySecureSession (set a secret key & the path to cookie),
-  fastifySensible (????)
-  */
-
-  setupLocalization(); // i18next
-  setUpViews(app); // pointOfView (set the engine view (pug))
+  setupLocalization();
+  setUpViews(app);
   setUpStaticAssets(app);
-  addRoutes(app); // import from ./routes/index.js
-  addHooks(app); // isAuthenticated
+  addRoutes(app);
+  addHooks(app);
 
   return app;
 };
