@@ -15,12 +15,12 @@ export default (app) => {
     })
     .get('/users/:id/edit', { name: 'editUser', preValidation: app.authenticate }, async (req, reply) => {
       const { id } = req.params;
-      const user = await app.objection.models.user.query().findById(id);
       if (Number(id) !== req.user.id) {
         req.flash('error', i18next.t('flash.users.accessError'));
         reply.redirect(app.reverse('users'));
         return reply;
       }
+      const user = await app.objection.models.user.query().findById(id);
       reply.render('users/edit', { user });
       return reply;
     })

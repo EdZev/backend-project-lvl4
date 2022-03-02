@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import getApp from '../server/index.js';
 import encrypt from '../server/lib/secure.js';
-import { getTestData, prepareData } from './helpers/index.js';
+import { getTestData, prepareData, signIn } from './helpers/index.js';
 
 describe('test users CRUD', () => {
   let app;
@@ -60,6 +60,57 @@ describe('test users CRUD', () => {
     };
     const user = await models.user.query().findOne({ email: params.email });
     expect(user).toMatchObject(expected);
+  });
+
+  it('edit', async () => {
+    const cookies = await signIn(app, testData.users.existing);
+    const currentUser = await models.user.query()
+      .findOne({ email: testData.users.existing.email });
+    const response = await app.inject({
+      method: 'GET',
+      url: app.reverse('editUser', { id: currentUser.id }),
+      cookies,
+    });
+    expect(response.statusCode).toBe(200);
+  });
+
+  it('update', async () => {
+    const params = testData.users.new;
+    const cookies = await signIn(app, testData.users.existing);
+    const currentUser = await models.user.query()
+      .findOne({ email: testData.users.existing.email });
+    const response = await app.inject({
+      method: 'PATCH',
+      url: app.reverse('user', { id: currentUser.id }),
+      cookies,
+      payload: {
+        data: params,
+      },
+    });
+    expect(response.statusCode).toBe(302);
+    const expected = {
+      ..._.omit(params, 'password'),
+      passwordDigest: encrypt(params.password),
+    };
+    const user = await models.user.query().findOne({ email: params.email });
+    expect(user).toMatchObject(expected);
+  });
+
+  it('delete', async () => {
+    const params = testData.users.deleted;
+    const cookies = await signIn(app, params);
+
+    const currentUser = await models.user.query()
+      .findOne({ email: params.email });
+
+    const response = await app.inject({
+      method: 'DELETE',
+      url: app.reverse('user', { id: currentUser.id }),
+      cookies,
+    });
+    expect(response.statusCode).toBe(302);
+    const user = await models.user.query().findById(currentUser.id);
+    expect(user).toBeUndefined();
   });
 
   afterEach(async () => {

@@ -31,7 +31,6 @@ dotenv.config();
 const mode = process.env.NODE_ENV || 'development';
 const isProduction = mode === 'production';
 const isDevelopment = mode === 'development';
-console.log('!!!DATABASE_URL!!! -', process.env.DATABASE_URL);
 
 const setUpViews = (app) => {
   const { devServer } = webpackConfig;

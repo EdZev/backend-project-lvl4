@@ -10,5 +10,11 @@
   {
     "email": "nona_murray@yahoo.com",
     "passwordDigest": "760391e7dceb3cf65ee23e97ca3db8c1515d18c3434b003c1fd781053afcf86f"
+  },
+  {
+    "firstName": "Vassya",
+    "lastName": "Kuzenkov",
+    "email": "batbondik0@gmail.com",
+    "passwordDigest": "c0c4a69b17a7955ac230bfc8db4a123eaa956ccf3c0022e68b8d4e2f5b699d1f"
   }
 ]
